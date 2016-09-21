@@ -1,15 +1,14 @@
 /**
-*
-* User enters #, possibly multiple, and display shows current nums.
-* User presses operation key, display shows total thus far.
-* User enters #, possibly multiple, and display shows current nums.
-* User presses operation key, display shows total thus far.
-**/
+ *
+ * User enters #, possibly multiple, and display shows current nums.
+ * User presses operation key, display shows total thus far.
+ * User enters #, possibly multiple, and display shows current nums.
+ * User presses operation key, display shows total thus far.
+ **/
 
 // TODO: DEFINE ANY VARIABLES HERE
 var total = 0;
 var current = "";
-var typing = true;
 var adding = false;
 var subtracting = false;
 var multiplying = false;
@@ -18,124 +17,127 @@ var start = true;
 
 
 // TODO: DEFINE YOUR FUNCTIONS HERE
-function add (int1, int2) {
-  int1 = parseFloat(int1);
-  int2 = parseFloat(int2);
-  return int2+int1;
+function add(int1, int2) {
+    int1 = parseFloat(int1);
+    int2 = parseFloat(int2);
+    return int2 + int1;
 }
-function subtract (int1, int2) {
-  int1 = parseFloat(int1);
-  int2 = parseFloat(int2);
-  return int2-int1;
+
+function subtract(int1, int2) {
+    int1 = parseFloat(int1);
+    int2 = parseFloat(int2);
+    return int2 - int1;
 }
-function multiply (int1, int2) {
-  int1 = parseFloat(int1);
-  int2 = parseFloat(int2);
-  return int2*int1;
+
+function multiply(int1, int2) {
+    int1 = parseFloat(int1);
+    int2 = parseFloat(int2);
+    return int2 * int1;
 }
-function divide (int1, int2) {
-  int1 = parseFloat(int1);
-  int2 = parseFloat(int2);
-  return int1/int2;
+
+function divide(int1, int2) {
+    int1 = parseFloat(int1);
+    int2 = parseFloat(int2);
+    return int1 / int2;
 }
 
 function updateTotal() {
-  if (adding) {
-    total = add(total, parseFloat(current));
-  } else if (subtracting) {
-    total = subtract(parseFloat(current), total);
-  } else if (multiplying) {
-    total = multiply(total, parseFloat(current));
-  } else if (dividing) {
-    total = divide(total, parseFloat(current));
-  }
+    if (adding) {
+        total = add(total, parseFloat(current));
+    } else if (subtracting) {
+        total = subtract(parseFloat(current), total);
+    } else if (multiplying) {
+        total = multiply(total, parseFloat(current));
+    } else if (dividing) {
+        total = divide(total, parseFloat(current));
+    }
 }
 
 function checkTyping(buttonValue) {
-  if (buttonValue === "+") {
-    updateTotal();
-    adding = true;
-    subtracting = false;
-    multiplying = false;
-    dividing = false;
-    if (start) {
-      updateDisplay(current);
-      total = current;
-      start = false;
+    if (buttonValue === "+") {
+        updateTotal();
+        adding = true;
+        subtracting = false;
+        multiplying = false;
+        dividing = false;
+        if (start) {
+            updateDisplay(current);
+            total = current;
+            start = false;
+        } else {
+            updateDisplay(total);
+        }
+        current = "";
+    } else if (buttonValue === "-") {
+        updateTotal();
+        adding = false;
+        subtracting = true;
+        multiplying = false;
+        dividing = false;
+        if (start) {
+            updateDisplay(current);
+            total = current;
+            start = false;
+        } else {
+            updateDisplay(total);
+        }
+        current = "";
+    } else if (buttonValue === "x") {
+        if (total == 0) {
+            total = 1;
+        }
+        updateTotal();
+        adding = false;
+        subtracting = false;
+        multiplying = true;
+        dividing = false;
+        if (start) {
+            updateDisplay(current);
+            total = current;
+            start = false;
+        } else {
+            updateDisplay(total);
+        }
+        current = "";
+    } else if (buttonValue === "/") {
+        if (total == 0) {
+            total = 1;
+        }
+        adding = false;
+        subtracting = false;
+        multiplying = false;
+        dividing = true;
+        updateTotal();
+        if (start) {
+            updateDisplay(current);
+            total = current;
+            start = false;
+        } else {
+            updateDisplay(total);
+        }
+        current = "";
+    } else if (buttonValue === "clear") {
+        adding = false;
+        subtracting = false;
+        multiplying = false;
+        dividing = false;
+        start = true;
+        current = "";
+        total = 0;
+        updateDisplay("");
+    } else if (buttonValue === "=") {
+        updateTotal();
+        adding = false;
+        subtracting = false;
+        multiplying = false;
+        dividing = false;
+        start = true;
+        updateDisplay(total);
+        current = total.toString();
     } else {
-      updateDisplay(total);
+        current += buttonValue;
+        updateDisplay(current);
     }
-    current = "";
-  } else if (buttonValue === "-") {
-    updateTotal();
-    adding = false;
-    subtracting = true;
-    multiplying = false;
-    dividing = false;
-    if (start) {
-      updateDisplay(current);
-      total = current;
-      start = false;
-    } else {
-      updateDisplay(total);
-    }
-    current = "";
-  } else if (buttonValue === "x") {
-    if (total == 0) {
-      total = 1;
-    }
-    updateTotal();
-    adding = false;
-    subtracting = false;
-    multiplying = true;
-    dividing = false;
-    if (start) {
-      updateDisplay(current);
-      total = current;
-      start = false;
-    } else {
-      updateDisplay(total);
-    }
-    current = "";
-  } else if (buttonValue === "/") {
-    if (total == 0) {
-      total = 1;
-    }
-    adding = false;
-    subtracting = false;
-    multiplying = false;
-    dividing = true;
-    updateTotal();
-    if (start) {
-      updateDisplay(current);
-      total = current;
-      start = false;
-    } else {
-      updateDisplay(total);
-    }
-    current = "";
-  } else if (buttonValue === "clear") {
-    adding = false;
-    subtracting = false;
-    multiplying = false;
-    dividing = false;
-    start=true;
-    current = "";
-    total = 0;
-    updateDisplay("");
-  } else if (buttonValue === "=") {
-    updateTotal();
-    adding = false;
-    subtracting = false;
-    multiplying = false;
-    dividing = false;
-    start = true;
-    updateDisplay(total);
-    current = total.toString();
-  } else {
-    current += buttonValue;
-    updateDisplay(current);
-  }
 }
 
 
@@ -148,14 +150,14 @@ function checkTyping(buttonValue) {
  * @param  {String} buttonValue   The value of the button that was clicked on, for example "6" or "+"
  */
 function handleButtonClick(buttonValue) {
-  checkTyping(buttonValue);
-  console.clear();
-  console.log("Total: " + total);
-  console.log("Current: " + current);
-  console.log("Adding: " + adding);
-  console.log("Subtracting: " + subtracting);
-  console.log("Multiplying: " + multiplying);
-  console.log("Dividing: " + dividing);
+    checkTyping(buttonValue);
+    console.clear();
+    console.log("Total: " + total);
+    console.log("Current: " + current);
+    console.log("Adding: " + adding);
+    console.log("Subtracting: " + subtracting);
+    console.log("Multiplying: " + multiplying);
+    console.log("Dividing: " + dividing);
 }
 
 
@@ -244,7 +246,7 @@ document.querySelector('.run-tests').addEventListener('click', function() {
         console.log('All tests have run. (If you see no errors, they all passed!)');
         updateDisplay('');
 
-    } catch(e) {
+    } catch (e) {
         console.error('There was a syntax error during the test run:', e);
     }
 });
@@ -264,6 +266,7 @@ document.querySelector('.run-tests').addEventListener('click', function() {
 });
 
 var display = document.querySelector('.display figure');
+
 function updateDisplay(text) {
     display.innerText = text;
 }
