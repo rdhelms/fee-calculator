@@ -103,11 +103,11 @@ function checkTyping(buttonValue) {
         if (total == 0) {
             total = 1;
         }
+        updateTotal();
         adding = false;
         subtracting = false;
         multiplying = false;
         dividing = true;
-        updateTotal();
         if (start) {
             updateDisplay(current);
             total = current;
