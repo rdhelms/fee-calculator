@@ -7,7 +7,6 @@
 **/
 
 // TODO: DEFINE ANY VARIABLES HERE
-// var lastTotal = 0;
 var total = 0;
 var current = "";
 var typing = true;
@@ -16,7 +15,6 @@ var subtracting = false;
 var multiplying = false;
 var dividing = false;
 var start = true;
-// var nums = "013456789";
 
 
 // TODO: DEFINE YOUR FUNCTIONS HERE
@@ -133,7 +131,6 @@ function checkTyping(buttonValue) {
     dividing = false;
     start = true;
     updateDisplay(total);
-    // lastTotal = total;
     current = total.toString();
   } else {
     current += buttonValue;
